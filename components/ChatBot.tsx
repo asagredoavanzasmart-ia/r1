@@ -22,9 +22,10 @@ const ChatBot: React.FC = () => {
   useEffect(() => {
     try {
       // Robust detection of API Key from Vite defines or import.meta.env
-      const apiKey = (import.meta as any).env?.VITE_GEMINI_API_KEY
-        || (window as any).__GEMINI_API_KEY__
-        || (typeof process !== 'undefined' && (process.env as any).GEMINI_API_KEY);
+      // IMPORTANT: import.meta.env.VITE_* must be accessed directly (no cast/optional chain)
+      // so Vite's transform replaces it with the literal value at build time.
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY
+        || (process.env as any).GEMINI_API_KEY;
 
       if (!apiKey) {
         console.warn("Gemini API Key not found. Chat will be disabled.");

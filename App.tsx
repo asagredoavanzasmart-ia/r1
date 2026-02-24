@@ -109,8 +109,8 @@ function App() {
         />
       </div>
 
-      {/* Touch gesture hint - mobile only */}
-      <div className="md:hidden absolute top-[5rem] left-1/2 -translate-x-1/2 z-10 bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10 text-[10px] text-white/50 pointer-events-none animate-pulse">
+      {/* Touch gesture hint - hidden on mobile (overlaps hamburger), shown briefly on desktop */}
+      <div className="hidden md:block absolute top-[5rem] left-1/2 -translate-x-1/2 z-10 bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10 text-[10px] text-white/50 pointer-events-none animate-pulse">
         Pellizca para zoom · Desliza para rotar
       </div>
       {/* Header */}

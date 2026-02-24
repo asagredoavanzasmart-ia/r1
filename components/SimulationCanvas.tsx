@@ -544,8 +544,19 @@ const Photons: React.FC<{
                     <feComposite in="SourceGraphic" in2="blur" operator="over" />
                   </filter>
                 </defs>
+                {/* Line: goes left on mobile, right on desktop */}
                 <path
+                  className="hidden md:block"
                   d="M0,0 L30,-50 L240,-50"
+                  stroke="#38bdf8"
+                  strokeWidth="2"
+                  fill="none"
+                  filter="url(#glow-line)"
+                  strokeOpacity="0.8"
+                />
+                <path
+                  className="md:hidden"
+                  d="M0,0 L-10,-40"
                   stroke="#38bdf8"
                   strokeWidth="2"
                   fill="none"
@@ -555,13 +566,10 @@ const Photons: React.FC<{
                 <circle cx="0" cy="0" r="3" fill="white" filter="url(#glow-line)" />
               </svg>
 
+              {/* Desktop: panel to the right */}
               <div
-                className="absolute"
-                style={{
-                  left: '30px',
-                  top: '-50px',
-                  transform: 'translateY(-50%)'
-                }}
+                className="hidden md:block absolute"
+                style={{ left: '30px', top: '-50px', transform: 'translateY(-50%)' }}
               >
                 <div className="bg-slate-950/80 backdrop-blur-md border border-sky-500/30 px-4 py-3 rounded-lg shadow-[0_4px_20px_rgba(0,0,0,0.6)] ml-2 text-left min-w-[240px] relative overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-sky-500/10 to-transparent -translate-x-full animate-[shimmer_3s_infinite]"></div>
@@ -572,32 +580,34 @@ const Photons: React.FC<{
                   <h3 className="text-sm font-semibold text-white leading-snug relative z-10 mb-1">
                     Radiación de fondo cósmico<br />de microondas (CMB)
                   </h3>
-
                   {isNearEnd && (
                     <div className="flex flex-col gap-2 mt-2 w-full animate-in fade-in slide-in-from-top-2 duration-500">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onOpen360();
-                        }}
-                        className="w-full py-1.5 bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold rounded shadow-lg shadow-sky-900/50 flex items-center justify-center gap-2 transition-all"
-                      >
+                      <button onClick={(e) => { e.stopPropagation(); onOpen360(); }} className="w-full py-1.5 bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold rounded shadow-lg shadow-sky-900/50 flex items-center justify-center gap-2 transition-all">
                         <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                         Ver en 360° / VR
                       </button>
-
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onOpenInspector();
-                        }}
-                        className="w-full py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded shadow-lg shadow-emerald-900/50 flex items-center justify-center gap-2 transition-all border border-emerald-400/30"
-                      >
+                      <button onClick={(e) => { e.stopPropagation(); onOpenInspector(); }} className="w-full py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded shadow-lg shadow-emerald-900/50 flex items-center justify-center gap-2 transition-all border border-emerald-400/30">
                         <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
                         Ver un fotón
                       </button>
                     </div>
                   )}
+                </div>
+              </div>
+
+              {/* Mobile: compact badge above the photon point */}
+              <div
+                className="md:hidden absolute"
+                style={{ left: '-70px', top: '-65px' }}
+              >
+                <div className="bg-slate-950/90 backdrop-blur-md border border-sky-500/40 px-2 py-1.5 rounded-lg shadow-xl text-left w-[140px]">
+                  <div className="flex items-center gap-1.5 mb-1 relative z-10">
+                    <div className="w-1.5 h-1.5 bg-sky-400 rounded-full animate-pulse"></div>
+                    <span className="text-[9px] text-sky-400 font-bold uppercase tracking-widest">Fotón CMB</span>
+                  </div>
+                  <p className="text-[9px] text-slate-300 leading-tight relative z-10">
+                    Radiación de fondo cósmico de microondas
+                  </p>
                 </div>
               </div>
             </div>

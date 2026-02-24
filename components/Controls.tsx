@@ -426,8 +426,23 @@ const Controls: React.FC<ControlsProps> = ({ state, setState, hoverData, toggleC
           {/* Controls Row */}
           <div className="flex items-center justify-between px-2 pb-6 pt-1 md:pb-8 md:pt-4 md:px-20 gap-1 md:gap-6">
 
-            {/* Left: Playback Controls */}
+            {/* Left: Speed + Playback Controls */}
             <div className="flex items-center gap-1 md:gap-3 shrink-0">
+
+              {/* Speed selector — leftmost in mobile to avoid overlap with FABs */}
+              <div className="relative md:hidden">
+                <button onClick={() => setShowSpeed(!showSpeed)} className="h-7 px-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-[9px] text-white font-bold transition-all flex items-center gap-1 shadow-lg">
+                  <span>{state.playbackSpeed}x</span>
+                  <svg className="w-2.5 h-2.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                {showSpeed && (
+                  <div className="absolute bottom-full left-0 mb-2 w-16 bg-slate-900 border border-slate-700 rounded-lg overflow-hidden shadow-xl flex flex-col">
+                    {[0.5, 1, 2, 5].map(s => (
+                      <button key={s} onClick={() => { setState(p => ({ ...p, playbackSpeed: s })); setShowSpeed(false); }} className={`py-2 text-[10px] font-bold hover:bg-slate-800 ${state.playbackSpeed === s ? 'text-sky-400' : 'text-slate-400'}`}>{s}x</button>
+                    ))}
+                  </div>
+                )}
+              </div>
               <button onClick={skipBack} className="w-7 h-7 md:w-10 md:h-10 rounded-full bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-lg group">
                 <svg className="w-3 h-3 md:w-4 md:h-4 group-hover:-translate-x-0.5 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z" /></svg>
               </button>
@@ -482,12 +497,12 @@ const Controls: React.FC<ControlsProps> = ({ state, setState, hoverData, toggleC
               <input type="range" min="0" max="1" step="0.001" value={state.time} onChange={handleTime} className="absolute inset-0 w-full opacity-0 cursor-pointer z-50 h-full" />
             </div>
 
-            {/* Right: Speed */}
-            <div className="flex items-center shrink-0">
+            {/* Right: Speed — desktop only (mobile speed is left-side) */}
+            <div className="hidden md:flex items-center shrink-0">
               <div className="relative">
-                <button onClick={() => setShowSpeed(!showSpeed)} className="h-7 px-2 md:h-9 md:px-3 rounded-lg bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-[9px] md:text-xs text-white font-bold transition-all flex items-center gap-1 md:gap-2 shadow-lg">
+                <button onClick={() => setShowSpeed(!showSpeed)} className="h-9 px-3 rounded-lg bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-xs text-white font-bold transition-all flex items-center gap-2 shadow-lg">
                   <span>{state.playbackSpeed}x</span>
-                  <svg className="w-2.5 h-2.5 md:w-3 md:h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                  <svg className="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                 </button>
                 {showSpeed && (
                   <div className="absolute bottom-full right-0 mb-2 w-16 bg-slate-900 border border-slate-700 rounded-lg overflow-hidden shadow-xl flex flex-col">
