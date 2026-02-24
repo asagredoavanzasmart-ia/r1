@@ -31,7 +31,7 @@ const ChatBot: React.FC = () => {
 
       const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({
-        model: "gemini-2.0-flash",
+        model: "gemini-2.5-flash",
         systemInstruction: "Eres un astrónomo experto y físico cosmólogo integrado en una aplicación de visualización 3D del Fondo Cósmico de Microondas (CMB). Tu objetivo es explicar conceptos complejos como la métrica FLRW, el redshift cosmológico, la superficie de última dispersión y la expansión del universo de forma clara, fascinante y educativa. Responde de manera concisa (máximo 3 párrafos cortos) ya que estás en una ventana de chat. Usa formato Markdown simple si es necesario.",
       });
 
@@ -106,7 +106,7 @@ const ChatBot: React.FC = () => {
             <h3 className="font-bold text-white text-sm">Astrónomo IA</h3>
             <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-              <span className="text-[10px] text-sky-300 font-mono">Gemini 2.0 Flash</span>
+              <span className="text-[10px] text-sky-300 font-mono">Gemini 2.5 Flash</span>
             </div>
           </div>
         </div>
