@@ -412,10 +412,19 @@ const Controls: React.FC<ControlsProps> = ({ state, setState, hoverData, toggleC
         </div>
 
 
-        {/* === BOTTOM CONTROLS BAR (NEW LAYOUT) === */}
-        <div className="absolute bottom-0 left-0 right-0 py-2 px-1 md:py-6 md:px-20 z-30 pointer-events-auto bg-gradient-to-t from-black via-black/90 to-transparent flex items-center justify-center pb-8 md:pb-6 overflow-visible w-full box-border">
+        {/* === BOTTOM CONTROLS BAR === */}
+        <div className="absolute bottom-0 left-0 right-0 z-30 pointer-events-auto bg-gradient-to-t from-black via-black/90 to-transparent">
 
-          <div className="w-full max-w-[100vw] sm:max-w-7xl flex items-center justify-between gap-1 md:gap-6 px-1 md:px-0">
+          {/* Age Badge — mobile: inline compact strip, desktop: floating absolute */}
+          <div className="md:hidden flex items-center justify-center py-1">
+            <div className="bg-slate-900/90 backdrop-blur px-3 py-0.5 rounded-full border border-slate-700 shadow-xl flex items-center gap-2">
+              <span className="text-[9px] text-slate-400 uppercase tracking-wider font-bold">Edad</span>
+              <span className="text-[10px] font-mono font-bold text-white">{age}</span>
+            </div>
+          </div>
+
+          {/* Controls Row */}
+          <div className="flex items-center justify-between px-2 pb-6 pt-1 md:pb-8 md:pt-4 md:px-20 gap-1 md:gap-6">
 
             {/* Left: Playback Controls */}
             <div className="flex items-center gap-1 md:gap-3 shrink-0">
@@ -439,23 +448,21 @@ const Controls: React.FC<ControlsProps> = ({ state, setState, hoverData, toggleC
             {/* Center: Timeline Track */}
             <div id="tour-timeline" className="flex-1 relative h-6 md:h-12 flex items-center group mx-1 md:mx-0">
 
-              {/* Age Badge Floating Above */}
-              <div className="absolute -top-8 md:-top-24 left-1/2 -translate-x-1/2 bg-slate-900/90 backdrop-blur px-2 py-0.5 md:px-5 md:py-2 rounded-full border border-slate-700 shadow-xl flex items-center gap-1 md:gap-3 z-50">
-                <span className="text-[7px] md:text-[11px] text-slate-400 uppercase tracking-wider whitespace-nowrap font-bold hidden md:inline">EDAD UNIVERSO</span>
-                <div className="h-3 md:h-4 w-px bg-slate-700 hidden md:block"></div>
-                <span className="text-[9px] md:text-sm font-mono font-bold text-white min-w-[50px] md:min-w-[80px] text-center">{age}</span>
+              {/* Age Badge — desktop only, floating above */}
+              <div className="hidden md:flex absolute -top-24 left-1/2 -translate-x-1/2 bg-slate-900/90 backdrop-blur px-5 py-2 rounded-full border border-slate-700 shadow-xl items-center gap-3 z-50">
+                <span className="text-[11px] text-slate-400 uppercase tracking-wider whitespace-nowrap font-bold">EDAD UNIVERSO</span>
+                <div className="h-4 w-px bg-slate-700"></div>
+                <span className="text-sm font-mono font-bold text-white min-w-[80px] text-center">{age}</span>
               </div>
 
-              {/* Leader Lines (Above) */}
+              {/* Leader Lines (Above — desktop only) */}
               <div className="absolute bottom-6 left-0 right-0 h-24 pointer-events-none hidden md:block">
-                {/* Markers rendered here if needed, or simplifed for new layout */}
                 {markers.map((m, i) => {
                   const displayClass = m.mobileHidden ? 'hidden md:flex' : 'flex';
                   const height = `${m.h * 1.5}rem`;
                   let alignClass = "-translate-x-1/2 items-center";
                   if (m.p === 0) alignClass = "translate-x-0 items-start";
                   if (m.p === 100) alignClass = "items-end -translate-x-full";
-
                   return (
                     <div key={i} className={`absolute bottom-0 flex-col ${displayClass} ${alignClass} transition-opacity duration-300`} style={{ left: `${m.p}%` }}>
                       <div className={`text-[9px] font-bold tracking-widest px-2 py-0.5 rounded bg-black/60 backdrop-blur border border-white/10 whitespace-nowrap mb-1 ${Math.abs(state.time * 100 - m.p) < 2 ? 'text-sky-300 border-sky-500/50' : 'text-slate-400'}`}>{m.l}</div>
@@ -475,10 +482,8 @@ const Controls: React.FC<ControlsProps> = ({ state, setState, hoverData, toggleC
               <input type="range" min="0" max="1" step="0.001" value={state.time} onChange={handleTime} className="absolute inset-0 w-full opacity-0 cursor-pointer z-50 h-full" />
             </div>
 
-            {/* Right: Scale & Speed */}
-            <div className="flex items-center gap-1 md:gap-4 shrink-0 pr-1 md:pr-40">
-              {/* Added padding-right to avoid overlap with floating buttons at bottom right */}
-
+            {/* Right: Speed */}
+            <div className="flex items-center shrink-0">
               <div className="relative">
                 <button onClick={() => setShowSpeed(!showSpeed)} className="h-7 px-2 md:h-9 md:px-3 rounded-lg bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-[9px] md:text-xs text-white font-bold transition-all flex items-center gap-1 md:gap-2 shadow-lg">
                   <span>{state.playbackSpeed}x</span>
