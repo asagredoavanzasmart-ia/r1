@@ -31,7 +31,7 @@ const ChatBot: React.FC = () => {
 
       const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({
-        model: "gemini-2.0-flash-lite-preview-02-05",
+        model: "gemini-2.0-flash",
         systemInstruction: "Eres un astrónomo experto y físico cosmólogo integrado en una aplicación de visualización 3D del Fondo Cósmico de Microondas (CMB). Tu objetivo es explicar conceptos complejos como la métrica FLRW, el redshift cosmológico, la superficie de última dispersión y la expansión del universo de forma clara, fascinante y educativa. Responde de manera concisa (máximo 3 párrafos cortos) ya que estás en una ventana de chat. Usa formato Markdown simple si es necesario.",
       });
 
@@ -106,7 +106,7 @@ const ChatBot: React.FC = () => {
             <h3 className="font-bold text-white text-sm">Astrónomo IA</h3>
             <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-              <span className="text-[10px] text-sky-300 font-mono">Gemini 2.0 Flash Lite</span>
+              <span className="text-[10px] text-sky-300 font-mono">Gemini 2.0 Flash</span>
             </div>
           </div>
         </div>
@@ -144,6 +144,12 @@ const ChatBot: React.FC = () => {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSend();
+                }
+              }}
               placeholder="Pregunta sobre el cosmos..."
               className="w-full bg-slate-950/50 text-white text-sm rounded-full pl-4 pr-12 py-3 border border-slate-700 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 outline-none transition-all placeholder:text-slate-500"
               disabled={isLoading}
