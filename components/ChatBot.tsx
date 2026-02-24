@@ -21,9 +21,15 @@ const ChatBot: React.FC = () => {
   // Initialize Chat Session on mount
   useEffect(() => {
     try {
-      if (!process.env.API_KEY) return;
+      // Robust detection of API Key from Vite defines or import.meta.env
+      const apiKey = (import.meta as any).env?.VITE_GEMINI_API_KEY || (process.env as any).GEMINI_API_KEY || (process.env as any).API_KEY;
 
-      const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+      if (!apiKey) {
+        console.warn("Gemini API Key not found. Chat will be disabled.");
+        return;
+      }
+
+      const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({
         model: "gemini-2.0-flash-lite-preview-02-05",
         systemInstruction: "Eres un astrónomo experto y físico cosmólogo integrado en una aplicación de visualización 3D del Fondo Cósmico de Microondas (CMB). Tu objetivo es explicar conceptos complejos como la métrica FLRW, el redshift cosmológico, la superficie de última dispersión y la expansión del universo de forma clara, fascinante y educativa. Responde de manera concisa (máximo 3 párrafos cortos) ya que estás en una ventana de chat. Usa formato Markdown simple si es necesario.",
@@ -75,7 +81,7 @@ const ChatBot: React.FC = () => {
       <button
         id="tour-chat"
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-[4.5rem] right-3 md:bottom-6 md:right-6 z-50 p-3 md:p-4 rounded-full shadow-[0_0_20px_rgba(14,165,233,0.5)] transition-all duration-300 hover:scale-110 group ${isOpen ? 'bg-slate-800 text-white rotate-90' : 'bg-sky-600 text-white'}`}
+        className={`fixed bottom-[4.5rem] right-3 md:bottom-6 md:right-6 z-40 p-3 md:p-4 rounded-full shadow-[0_0_20px_rgba(14,165,233,0.5)] transition-all duration-300 hover:scale-110 group ${isOpen ? 'bg-slate-800 text-white rotate-90' : 'bg-sky-600 text-white'}`}
         title="Preguntar al Astrónomo AI"
       >
         {isOpen ? (
@@ -89,7 +95,7 @@ const ChatBot: React.FC = () => {
 
       {/* Chat Window */}
       <div
-        className={`fixed bottom-32 right-1 md:bottom-48 md:right-8 w-[calc(100vw-8px)] md:w-96 h-[55vh] md:h-[500px] bg-slate-900/95 backdrop-blur-xl border border-sky-500/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col transition-all duration-300 origin-bottom-right z-40 ${isOpen ? 'scale-100 opacity-100' : 'scale-0 opacity-0 pointer-events-none'}`}
+        className={`fixed bottom-32 right-1 md:bottom-48 md:right-8 w-[calc(100vw-8px)] md:w-96 h-[55vh] md:h-[500px] bg-slate-900/95 backdrop-blur-xl border border-sky-500/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col transition-all duration-300 origin-bottom-right z-30 ${isOpen ? 'scale-100 opacity-100' : 'scale-0 opacity-0 pointer-events-none'}`}
       >
         {/* Header */}
         <div className="bg-gradient-to-r from-slate-900 to-slate-800 p-4 border-b border-sky-900/50 flex items-center gap-3">
