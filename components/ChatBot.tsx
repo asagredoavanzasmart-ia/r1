@@ -95,7 +95,7 @@ const ChatBot: React.FC = () => {
 
       {/* Chat Window */}
       <div
-        className={`fixed bottom-32 right-1 md:bottom-48 md:right-8 w-[calc(100vw-8px)] md:w-96 h-[55vh] md:h-[500px] bg-slate-900/95 backdrop-blur-xl border border-sky-500/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col transition-all duration-300 origin-bottom-right z-30 ${isOpen ? 'scale-100 opacity-100' : 'scale-0 opacity-0 pointer-events-none'}`}
+        className={`fixed bottom-[4.5rem] right-2 md:bottom-24 md:right-8 w-[calc(100vw-16px)] md:w-96 h-[60vh] md:h-[500px] max-h-[500px] bg-slate-900/95 backdrop-blur-xl border border-sky-500/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col transition-all duration-300 origin-bottom-right z-[60] ${isOpen ? 'scale-100 opacity-100' : 'scale-0 opacity-0 pointer-events-none'}`}
       >
         {/* Header */}
         <div className="bg-gradient-to-r from-slate-900 to-slate-800 p-4 border-b border-sky-900/50 flex items-center gap-3">

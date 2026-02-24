@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 
 interface Step {
   target: string;
@@ -153,7 +153,12 @@ const TourGuide: React.FC<TourGuideProps> = ({ start, onFinish }) => {
           top, left, width: w, height: h, right: left + w, bottom: top + h, x: left, y: top, toJSON: () => { }
         } as DOMRect;
       } else {
-        const el = document.querySelector(step.target);
+        let actualTarget = step.target;
+        if (isMobile) {
+          if (currentStep === 1 || currentStep === 5 || currentStep === 6) actualTarget = "#tour-mobile-left-btn";
+          if (currentStep === 4) actualTarget = "#tour-mobile-right-btn";
+        }
+        const el = document.querySelector(actualTarget);
         if (el) {
           const rawRect = el.getBoundingClientRect();
           const padding = 6;
@@ -193,7 +198,15 @@ const TourGuide: React.FC<TourGuideProps> = ({ start, onFinish }) => {
 
   let top = 0;
   let left = 0;
-  const pos = step.position;
+  let pos = step.position;
+  if (isMobile) {
+    if (currentStep === 1) pos = "bottom";
+    if (currentStep === 4) pos = "bottom";
+    if (currentStep === 5) pos = "bottom";
+    if (currentStep === 6) pos = "bottom";
+    if (currentStep === 7) pos = "bottom";
+    if (currentStep === 8) pos = "top";
+  }
 
   if (pos === 'center') {
     top = (windowSize.h - tooltipHeightEstimate) / 2 + 100;

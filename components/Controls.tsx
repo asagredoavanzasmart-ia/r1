@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, Suspense } from 'react';
+﻿import React, { useState, useRef, useEffect, Suspense } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { OrbitControls, useTexture, Html } from '@react-three/drei';
 import * as THREE from 'three';
@@ -152,11 +152,11 @@ const UniversalModal = ({ type, onClose }: { type: ModalType, onClose: () => voi
             <iframe title={config.t} src={config.u} className="w-full h-full border-0" allowFullScreen></iframe>
           )}
           {isImg && (
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur border border-white/10 px-4 py-2 rounded-full flex gap-4 shadow-xl z-50">
-              <button onClick={() => setScale(s => s - 0.5)} className="text-white hover:text-sky-400">-</button>
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur border border-white/10 px-4 py-2 rounded-full flex items-center gap-3 md:gap-4 shadow-xl z-50">
+              <button onClick={() => setScale(s => Math.max(0.2, s - 0.5))} className="text-white hover:text-sky-400 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 text-lg font-bold transition-colors">-</button>
               <span className="text-xs font-mono text-slate-400 w-12 text-center">{Math.round(scale * 100)}%</span>
-              <button onClick={() => setScale(s => s + 0.5)} className="text-white hover:text-sky-400">+</button>
-              <button onClick={() => { setScale(1); setPos({ x: 0, y: 0 }); }} className="text-[9px] font-bold text-sky-400 ml-2">RESET</button>
+              <button onClick={() => setScale(s => Math.min(8, s + 0.5))} className="text-white hover:text-sky-400 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 text-lg font-bold transition-colors">+</button>
+              <button onClick={() => { setScale(1); setPos({ x: 0, y: 0 }); }} className="text-[10px] uppercase font-bold text-sky-400 ml-1 hover:text-white transition-colors">RESET</button>
             </div>
           )}
         </div>
@@ -206,7 +206,7 @@ const Controls: React.FC<ControlsProps> = ({ state, setState, hoverData, toggleC
         {/* === HEADER (Mobile Only) === */}
         <div className="md:hidden absolute top-0 left-0 right-0 p-3 bg-gradient-to-b from-black/90 via-black/60 to-transparent z-20 pointer-events-auto">
           <div className="flex justify-between items-center text-white">
-            <button onClick={() => setMobileLeftOpen(true)} className="p-2 -ml-1 hover:bg-white/10 rounded-lg transition-colors">
+            <button id="tour-mobile-left-btn" onClick={() => setMobileLeftOpen(true)} className="p-2 -ml-1 hover:bg-white/10 rounded-lg transition-colors">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
             </button>
             <div className="flex items-center gap-2">
@@ -215,7 +215,7 @@ const Controls: React.FC<ControlsProps> = ({ state, setState, hoverData, toggleC
                 {state.isPlaying ? 'LIVE' : 'PAUSED'}
               </div>
             </div>
-            <button onClick={() => setMobileRightOpen(true)} className="p-2 -mr-1 hover:bg-white/10 rounded-lg transition-colors">
+            <button id="tour-mobile-right-btn" onClick={() => setMobileRightOpen(true)} className="p-2 -mr-1 hover:bg-white/10 rounded-lg transition-colors">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
             </button>
           </div>
@@ -413,37 +413,37 @@ const Controls: React.FC<ControlsProps> = ({ state, setState, hoverData, toggleC
 
 
         {/* === BOTTOM CONTROLS BAR (NEW LAYOUT) === */}
-        <div className="absolute bottom-0 left-0 right-0 py-3 px-3 md:py-6 md:px-20 z-30 pointer-events-auto bg-gradient-to-t from-black via-black/90 to-transparent flex items-center justify-center">
+        <div className="absolute bottom-0 left-0 right-0 py-2 px-1 md:py-6 md:px-20 z-30 pointer-events-auto bg-gradient-to-t from-black via-black/90 to-transparent flex items-center justify-center pb-8 md:pb-6">
 
-          <div className="w-full max-w-7xl flex items-center gap-2 md:gap-6">
+          <div className="w-full max-w-7xl flex items-center justify-between gap-1 md:gap-6">
 
             {/* Left: Playback Controls */}
-            <div className="flex items-center gap-1.5 md:gap-3 shrink-0">
-              <button onClick={skipBack} className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-lg group">
-                <svg className="w-3.5 h-3.5 md:w-4 md:h-4 group-hover:-translate-x-0.5 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z" /></svg>
+            <div className="flex items-center gap-1 md:gap-3 shrink-0">
+              <button onClick={skipBack} className="w-7 h-7 md:w-10 md:h-10 rounded-full bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-lg group">
+                <svg className="w-3 h-3 md:w-4 md:h-4 group-hover:-translate-x-0.5 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z" /></svg>
               </button>
 
-              <button id="tour-play-button" onClick={togglePlay} className={`w-11 h-11 md:w-14 md:h-14 rounded-full bg-slate-100 hover:bg-white text-slate-900 flex items-center justify-center transition-transform hover:scale-110 active:scale-95 z-40 ${!state.isPlaying && state.time === 0 ? 'animate-pulse shadow-[0_0_30px_rgba(255,255,255,0.6)]' : 'shadow-[0_0_20px_rgba(255,255,255,0.4)]'}`}>
+              <button id="tour-play-button" onClick={togglePlay} className={`w-9 h-9 md:w-14 md:h-14 rounded-full bg-slate-100 hover:bg-white text-slate-900 flex items-center justify-center transition-transform hover:scale-110 active:scale-95 z-40 ${!state.isPlaying && state.time === 0 ? 'animate-pulse shadow-[0_0_30px_rgba(255,255,255,0.6)]' : 'shadow-[0_0_20px_rgba(255,255,255,0.4)]'}`}>
                 {state.isPlaying ? (
-                  <svg className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
+                  <svg className="w-4 h-4 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
                 ) : (
-                  <svg className="w-5 h-5 md:w-6 md:h-6 ml-0.5 md:ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                  <svg className="w-4 h-4 md:w-6 md:h-6 ml-0.5 md:ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
                 )}
               </button>
 
-              <button onClick={skipForward} className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-lg group">
-                <svg className="w-3.5 h-3.5 md:w-4 md:h-4 group-hover:translate-x-0.5 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z" /></svg>
+              <button onClick={skipForward} className="w-7 h-7 md:w-10 md:h-10 rounded-full bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-lg group">
+                <svg className="w-3 h-3 md:w-4 md:h-4 group-hover:translate-x-0.5 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z" /></svg>
               </button>
             </div>
 
             {/* Center: Timeline Track */}
-            <div id="tour-timeline" className="flex-1 relative h-8 md:h-12 flex items-center group">
+            <div id="tour-timeline" className="flex-1 relative h-6 md:h-12 flex items-center group mx-1 md:mx-0">
 
               {/* Age Badge Floating Above */}
-              <div className="absolute -top-10 md:-top-24 left-1/2 -translate-x-1/2 bg-slate-900/90 backdrop-blur px-2.5 py-1 md:px-5 md:py-2 rounded-full border border-slate-700 shadow-xl flex items-center gap-1.5 md:gap-3 z-50">
-                <span className="text-[8px] md:text-[11px] text-slate-400 uppercase tracking-wider whitespace-nowrap font-bold hidden md:inline">EDAD UNIVERSO</span>
+              <div className="absolute -top-8 md:-top-24 left-1/2 -translate-x-1/2 bg-slate-900/90 backdrop-blur px-2 py-0.5 md:px-5 md:py-2 rounded-full border border-slate-700 shadow-xl flex items-center gap-1 md:gap-3 z-50">
+                <span className="text-[7px] md:text-[11px] text-slate-400 uppercase tracking-wider whitespace-nowrap font-bold hidden md:inline">EDAD UNIVERSO</span>
                 <div className="h-3 md:h-4 w-px bg-slate-700 hidden md:block"></div>
-                <span className="text-[10px] md:text-sm font-mono font-bold text-white min-w-[60px] md:min-w-[80px] text-center">{age}</span>
+                <span className="text-[9px] md:text-sm font-mono font-bold text-white min-w-[50px] md:min-w-[80px] text-center">{age}</span>
               </div>
 
               {/* Leader Lines (Above) */}
@@ -476,13 +476,13 @@ const Controls: React.FC<ControlsProps> = ({ state, setState, hoverData, toggleC
             </div>
 
             {/* Right: Scale & Speed */}
-            <div className="flex items-center gap-2 md:gap-4 shrink-0 pr-0 md:pr-40">
+            <div className="flex items-center gap-1 md:gap-4 shrink-0 pr-0 md:pr-40">
               {/* Added padding-right to avoid overlap with floating buttons at bottom right */}
 
               <div className="relative">
-                <button onClick={() => setShowSpeed(!showSpeed)} className="h-9 px-3 rounded-lg bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-xs text-white font-bold transition-all flex items-center gap-2 shadow-lg">
+                <button onClick={() => setShowSpeed(!showSpeed)} className="h-7 px-2 md:h-9 md:px-3 rounded-lg bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-[9px] md:text-xs text-white font-bold transition-all flex items-center gap-1 md:gap-2 shadow-lg">
                   <span>{state.playbackSpeed}x</span>
-                  <svg className="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                  <svg className="w-2.5 h-2.5 md:w-3 md:h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                 </button>
                 {showSpeed && (
                   <div className="absolute bottom-full right-0 mb-2 w-16 bg-slate-900 border border-slate-700 rounded-lg overflow-hidden shadow-xl flex flex-col">

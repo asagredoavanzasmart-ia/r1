@@ -51,12 +51,11 @@ const HistoricalTimeline: React.FC = () => {
 
   return (
     <>
-      {/* Floating Toggle Button - Positioned to the left of the Chat Button */}
-      {/* Chat is bottom-24 right-6. We place this at bottom-24 right-24 (approx 96px from right) to sit next to it. */}
+      {/* Floating Toggle Button - Positioned to the top right directly */}
       <button
         id="tour-history"
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-[4.5rem] right-14 md:bottom-6 md:right-24 z-50 p-3 md:p-4 rounded-full bg-slate-800 text-slate-200 border border-slate-600 shadow-[0_0_15px_rgba(0,0,0,0.5)] transition-all duration-300 hover:scale-110 hover:bg-slate-700 hover:text-white hover:border-slate-400 group"
+        className="fixed top-[4.5rem] right-4 md:top-6 md:right-28 z-50 p-2.5 md:p-3 rounded-full bg-slate-800 text-slate-200 border border-slate-600 shadow-[0_0_15px_rgba(0,0,0,0.5)] transition-all duration-300 hover:scale-110 hover:bg-slate-700 hover:text-white hover:border-slate-400 group"
         title="Línea de Tiempo Histórica"
       >
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

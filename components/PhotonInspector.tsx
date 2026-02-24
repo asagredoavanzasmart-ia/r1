@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+ï»¿import React, { useState, useEffect, useRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Stars, Environment, PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
@@ -130,8 +130,8 @@ const FieldVibrationScope: React.FC<{
     return (
         <div className="bg-slate-950/50 border border-slate-800 rounded-lg p-2 relative overflow-hidden">
             <div className="absolute top-2 left-2 text-[10px] font-mono text-slate-500 flex flex-col gap-1 z-10 bg-slate-950/50 p-1 rounded backdrop-blur-sm">
-                <span className="text-red-400 flex items-center gap-1"><span className="w-2 h-0.5 bg-red-400"></span> CAMPO ELÉCTRICO (E)</span>
-                <span className="text-sky-400 flex items-center gap-1"><span className="w-2 h-0.5 bg-sky-400 transform -rotate-45"></span> CAMPO MAGNÉTICO (B)</span>
+                <span className="text-red-400 flex items-center gap-1"><span className="w-2 h-0.5 bg-red-400"></span> CAMPO ELï¿½CTRICO (E)</span>
+                <span className="text-sky-400 flex items-center gap-1"><span className="w-2 h-0.5 bg-sky-400 transform -rotate-45"></span> CAMPO MAGNï¿½TICO (B)</span>
             </div>
             <canvas ref={canvasRef} width={width} height={height} className="w-full h-full" />
         </div>
@@ -412,7 +412,7 @@ export const PhotonInspector: React.FC<PhotonInspectorProps> = ({ isOpen, onClos
                             Laboratorio de Fotones
                         </h2>
                         <p className="text-slate-400 text-[10px] md:text-sm font-mono mt-1 ml-5">
-                            ANÁLISIS ESPECTRAL DE FOTÓN INDIVIDUAL
+                            ANï¿½LISIS ESPECTRAL DE FOTï¿½N INDIVIDUAL
                         </p>
                     </div>
 
@@ -436,9 +436,9 @@ export const PhotonInspector: React.FC<PhotonInspectorProps> = ({ isOpen, onClos
                                 contentEditable={true}
                                 suppressContentEditableWarning={true}
                             >
-                                Este fotón ha viajado durante <span className="text-white font-bold">13.8 mil millones de años</span> desde nuestra perspectiva.
-                                Sin embargo, al viajar a la velocidad de la luz, <span className="text-amber-300 font-bold">el tiempo no existe para él</span>.
-                                Su nacimiento y detección ocurren en el mismo instante de su tiempo propio.
+                                Este fotï¿½n ha viajado durante <span className="text-white font-bold">13.8 mil millones de aï¿½os</span> desde nuestra perspectiva.
+                                Sin embargo, al viajar a la velocidad de la luz, <span className="text-amber-300 font-bold">el tiempo no existe para ï¿½l</span>.
+                                Su nacimiento y detecciï¿½n ocurren en el mismo instante de su tiempo propio.
                             </p>
                         </div>
                     </div>
@@ -518,9 +518,9 @@ export const PhotonInspector: React.FC<PhotonInspectorProps> = ({ isOpen, onClos
                 <div className="h-auto min-h-0 md:min-h-[14rem] bg-slate-900 border-t border-slate-800 p-3 md:p-6 flex flex-col gap-3 md:gap-6 z-20 overflow-y-auto max-h-[40vh] md:max-h-none">
 
                     {/* Top Row: Metrics and Graph */}
-                    <div className="flex flex-col md:flex-row gap-3 md:gap-6 md:h-32">
+                    <div className="flex flex-col lg:flex-row gap-3 md:gap-6 md:h-auto lg:h-32">
                         {/* Metrics Grid */}
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 flex-1">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 flex-1">
                             <MetricCard
                                 label="Frecuencia"
                                 value={fmtFreq}
@@ -538,7 +538,7 @@ export const PhotonInspector: React.FC<PhotonInspectorProps> = ({ isOpen, onClos
                                 history={historyData.wave}
                             />
                             <MetricCard
-                                label="Energía Fotón"
+                                label="Energï¿½a Fotï¿½n"
                                 value={fmtEnergy}
                                 unit="eV"
                                 color="sky"
@@ -564,8 +564,8 @@ export const PhotonInspector: React.FC<PhotonInspectorProps> = ({ isOpen, onClos
                     {/* Timeline Controls (Bottom) */}
                     <div className="flex flex-col justify-center gap-2">
                         <div className="flex justify-between text-[10px] md:text-xs font-mono text-slate-400">
-                            <span>PUNTO DE EMISIÓN (t=380k años)</span>
-                            <span>PRESENTE (t=13.8M años)</span>
+                            <span>PUNTO DE EMISIï¿½N (t=380k aï¿½os)</span>
+                            <span>PRESENTE (t=13.8M aï¿½os)</span>
                         </div>
 
                         <input
@@ -614,4 +614,5 @@ export const PhotonInspector: React.FC<PhotonInspectorProps> = ({ isOpen, onClos
         </div>
     );
 };
+
 
