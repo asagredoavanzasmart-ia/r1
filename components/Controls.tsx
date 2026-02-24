@@ -423,107 +423,106 @@ const Controls: React.FC<ControlsProps> = ({ state, setState, hoverData, toggleC
             </div>
           </div>
 
-          {/* Controls Row — mobile: full width flex, desktop: centered with max-w */}
-          <div className="flex items-center justify-center px-2 pb-6 pt-1 md:pb-10 md:pt-4 md:px-20">
-            <div className="w-full md:max-w-3xl flex items-center justify-between gap-1 md:gap-6">
+          {/* Controls Row */}
+          <div className="flex items-center justify-between px-2 pb-6 pt-1 md:pb-8 md:pt-4 md:px-8 gap-1 md:gap-6 md:max-w-4xl md:mx-auto w-full">
 
-              {/* Left: Speed + Playback Controls */}
-              <div className="flex items-center gap-1 md:gap-3 shrink-0">
+            {/* Left: Speed + Playback Controls */}
+            <div className="flex items-center gap-1 md:gap-3 shrink-0">
 
-                {/* Speed selector — leftmost in mobile to avoid overlap with FABs */}
-                <div className="relative md:hidden">
-                  <button onClick={() => setShowSpeed(!showSpeed)} className="h-7 px-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-[9px] text-white font-bold transition-all flex items-center gap-1 shadow-lg">
-                    <span>{state.playbackSpeed}x</span>
-                    <svg className="w-2.5 h-2.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-                  </button>
-                  {showSpeed && (
-                    <div className="absolute bottom-full left-0 mb-2 w-16 bg-slate-900 border border-slate-700 rounded-lg overflow-hidden shadow-xl flex flex-col">
-                      {[0.5, 1, 2, 5].map(s => (
-                        <button key={s} onClick={() => { setState(p => ({ ...p, playbackSpeed: s })); setShowSpeed(false); }} className={`py-2 text-[10px] font-bold hover:bg-slate-800 ${state.playbackSpeed === s ? 'text-sky-400' : 'text-slate-400'}`}>{s}x</button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <button onClick={skipBack} className="w-7 h-7 md:w-10 md:h-10 rounded-full bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-lg group">
-                  <svg className="w-3 h-3 md:w-4 md:h-4 group-hover:-translate-x-0.5 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z" /></svg>
+              {/* Speed selector — leftmost in mobile to avoid overlap with FABs */}
+              <div className="relative md:hidden">
+                <button onClick={() => setShowSpeed(!showSpeed)} className="h-7 px-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-[9px] text-white font-bold transition-all flex items-center gap-1 shadow-lg">
+                  <span>{state.playbackSpeed}x</span>
+                  <svg className="w-2.5 h-2.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                 </button>
-
-                <button id="tour-play-button" onClick={togglePlay} className={`w-9 h-9 md:w-14 md:h-14 rounded-full bg-slate-100 hover:bg-white text-slate-900 flex items-center justify-center transition-transform hover:scale-110 active:scale-95 z-40 ${!state.isPlaying && state.time === 0 ? 'animate-pulse shadow-[0_0_30px_rgba(255,255,255,0.6)]' : 'shadow-[0_0_20px_rgba(255,255,255,0.4)]'}`}>
-                  {state.isPlaying ? (
-                    <svg className="w-4 h-4 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
-                  ) : (
-                    <svg className="w-4 h-4 md:w-6 md:h-6 ml-0.5 md:ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-                  )}
-                </button>
-
-                <button onClick={skipForward} className="w-7 h-7 md:w-10 md:h-10 rounded-full bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-lg group">
-                  <svg className="w-3 h-3 md:w-4 md:h-4 group-hover:translate-x-0.5 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z" /></svg>
-                </button>
+                {showSpeed && (
+                  <div className="absolute bottom-full left-0 mb-2 w-16 bg-slate-900 border border-slate-700 rounded-lg overflow-hidden shadow-xl flex flex-col">
+                    {[0.5, 1, 2, 5].map(s => (
+                      <button key={s} onClick={() => { setState(p => ({ ...p, playbackSpeed: s })); setShowSpeed(false); }} className={`py-2 text-[10px] font-bold hover:bg-slate-800 ${state.playbackSpeed === s ? 'text-sky-400' : 'text-slate-400'}`}>{s}x</button>
+                    ))}
+                  </div>
+                )}
               </div>
+              <button onClick={skipBack} className="w-7 h-7 md:w-10 md:h-10 rounded-full bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-lg group">
+                <svg className="w-3 h-3 md:w-4 md:h-4 group-hover:-translate-x-0.5 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z" /></svg>
+              </button>
 
-              {/* Center: Timeline Track */}
-              <div id="tour-timeline" className="flex-1 relative h-6 md:h-12 flex items-center group mx-1 md:mx-0">
+              <button id="tour-play-button" onClick={togglePlay} className={`w-9 h-9 md:w-14 md:h-14 rounded-full bg-slate-100 hover:bg-white text-slate-900 flex items-center justify-center transition-transform hover:scale-110 active:scale-95 z-40 ${!state.isPlaying && state.time === 0 ? 'animate-pulse shadow-[0_0_30px_rgba(255,255,255,0.6)]' : 'shadow-[0_0_20px_rgba(255,255,255,0.4)]'}`}>
+                {state.isPlaying ? (
+                  <svg className="w-4 h-4 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
+                ) : (
+                  <svg className="w-4 h-4 md:w-6 md:h-6 ml-0.5 md:ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                )}
+              </button>
 
-                {/* Age Badge — desktop only, floating above */}
-                <div className="hidden md:flex absolute -top-24 left-1/2 -translate-x-1/2 bg-slate-900/90 backdrop-blur px-5 py-2 rounded-full border border-slate-700 shadow-xl items-center gap-3 z-50">
-                  <span className="text-[11px] text-slate-400 uppercase tracking-wider whitespace-nowrap font-bold">EDAD UNIVERSO</span>
-                  <div className="h-4 w-px bg-slate-700"></div>
-                  <span className="text-sm font-mono font-bold text-white min-w-[80px] text-center">{age}</span>
-                </div>
-
-                {/* Leader Lines (Above — desktop only) */}
-                <div className="absolute bottom-6 left-0 right-0 h-24 pointer-events-none hidden md:block">
-                  {markers.map((m, i) => {
-                    const displayClass = m.mobileHidden ? 'hidden md:flex' : 'flex';
-                    const height = `${m.h * 1.5}rem`;
-                    let alignClass = "-translate-x-1/2 items-center";
-                    if (m.p === 0) alignClass = "translate-x-0 items-start";
-                    if (m.p === 100) alignClass = "items-end -translate-x-full";
-                    return (
-                      <div key={i} className={`absolute bottom-0 flex-col ${displayClass} ${alignClass} transition-opacity duration-300`} style={{ left: `${m.p}%` }}>
-                        <div className={`text-[9px] font-bold tracking-widest px-2 py-0.5 rounded bg-black/60 backdrop-blur border border-white/10 whitespace-nowrap mb-1 ${Math.abs(state.time * 100 - m.p) < 2 ? 'text-sky-300 border-sky-500/50' : 'text-slate-400'}`}>{m.l}</div>
-                        <div className="w-px bg-gradient-to-t from-slate-600 to-transparent" style={{ height: height }}></div>
-                        <div className="w-1 h-1 rounded-full bg-slate-500"></div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* The Track */}
-                <div className="w-full h-1.5 bg-slate-800/60 rounded-full overflow-hidden backdrop-blur border border-slate-700/50 relative cursor-pointer group-hover:h-2.5 transition-all">
-                  <div className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-sky-600 to-sky-400 shadow-[0_0_15px_rgba(14,165,233,0.5)] w-full origin-left transition-transform duration-75 ease-out" style={{ transform: `scaleX(${state.time})` }}></div>
-                </div>
-
-                {/* Range Input Overlay */}
-                <input type="range" min="0" max="1" step="0.001" value={state.time} onChange={handleTime} className="absolute inset-0 w-full opacity-0 cursor-pointer z-50 h-full" />
-              </div>
-
-              {/* Right: Speed — desktop only (mobile speed is left-side) */}
-              <div className="hidden md:flex items-center shrink-0">
-                <div className="relative">
-                  <button onClick={() => setShowSpeed(!showSpeed)} className="h-9 px-3 rounded-lg bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-xs text-white font-bold transition-all flex items-center gap-2 shadow-lg">
-                    <span>{state.playbackSpeed}x</span>
-                    <svg className="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-                  </button>
-                  {showSpeed && (
-                    <div className="absolute bottom-full right-0 mb-2 w-16 bg-slate-900 border border-slate-700 rounded-lg overflow-hidden shadow-xl flex flex-col">
-                      {[0.5, 1, 2, 5].map(s => (
-                        <button key={s} onClick={() => { setState(p => ({ ...p, playbackSpeed: s })); setShowSpeed(false); }} className={`py-2 text-[10px] font-bold hover:bg-slate-800 ${state.playbackSpeed === s ? 'text-sky-400' : 'text-slate-400'}`}>{s}x</button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-
+              <button onClick={skipForward} className="w-7 h-7 md:w-10 md:h-10 rounded-full bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-lg group">
+                <svg className="w-3 h-3 md:w-4 md:h-4 group-hover:translate-x-0.5 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z" /></svg>
+              </button>
             </div>
-          </div>
 
+            {/* Center: Timeline Track */}
+            <div id="tour-timeline" className="flex-1 relative h-6 md:h-12 flex items-center group mx-1 md:mx-0">
+
+              {/* Age Badge — desktop only, floating above */}
+              <div className="hidden md:flex absolute -top-24 left-1/2 -translate-x-1/2 bg-slate-900/90 backdrop-blur px-5 py-2 rounded-full border border-slate-700 shadow-xl items-center gap-3 z-50">
+                <span className="text-[11px] text-slate-400 uppercase tracking-wider whitespace-nowrap font-bold">EDAD UNIVERSO</span>
+                <div className="h-4 w-px bg-slate-700"></div>
+                <span className="text-sm font-mono font-bold text-white min-w-[80px] text-center">{age}</span>
+              </div>
+
+              {/* Leader Lines (Above — desktop only) */}
+              <div className="absolute bottom-6 left-0 right-0 h-24 pointer-events-none hidden md:block">
+                {markers.map((m, i) => {
+                  const displayClass = m.mobileHidden ? 'hidden md:flex' : 'flex';
+                  const height = `${m.h * 1.5}rem`;
+                  let alignClass = "-translate-x-1/2 items-center";
+                  if (m.p === 0) alignClass = "translate-x-0 items-start";
+                  if (m.p === 100) alignClass = "items-end -translate-x-full";
+                  return (
+                    <div key={i} className={`absolute bottom-0 flex-col ${displayClass} ${alignClass} transition-opacity duration-300`} style={{ left: `${m.p}%` }}>
+                      <div className={`text-[9px] font-bold tracking-widest px-2 py-0.5 rounded bg-black/60 backdrop-blur border border-white/10 whitespace-nowrap mb-1 ${Math.abs(state.time * 100 - m.p) < 2 ? 'text-sky-300 border-sky-500/50' : 'text-slate-400'}`}>{m.l}</div>
+                      <div className="w-px bg-gradient-to-t from-slate-600 to-transparent" style={{ height: height }}></div>
+                      <div className="w-1 h-1 rounded-full bg-slate-500"></div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* The Track */}
+              <div className="w-full h-1.5 bg-slate-800/60 rounded-full overflow-hidden backdrop-blur border border-slate-700/50 relative cursor-pointer group-hover:h-2.5 transition-all">
+                <div className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-sky-600 to-sky-400 shadow-[0_0_15px_rgba(14,165,233,0.5)] w-full origin-left transition-transform duration-75 ease-out" style={{ transform: `scaleX(${state.time})` }}></div>
+              </div>
+
+              {/* Range Input Overlay */}
+              <input type="range" min="0" max="1" step="0.001" value={state.time} onChange={handleTime} className="absolute inset-0 w-full opacity-0 cursor-pointer z-50 h-full" />
+            </div>
+
+            {/* Right: Speed — desktop only (mobile speed is left-side) */}
+            <div className="hidden md:flex items-center shrink-0">
+              <div className="relative">
+                <button onClick={() => setShowSpeed(!showSpeed)} className="h-9 px-3 rounded-lg bg-slate-800/80 hover:bg-slate-700 backdrop-blur border border-slate-700 text-xs text-white font-bold transition-all flex items-center gap-2 shadow-lg">
+                  <span>{state.playbackSpeed}x</span>
+                  <svg className="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                {showSpeed && (
+                  <div className="absolute bottom-full right-0 mb-2 w-16 bg-slate-900 border border-slate-700 rounded-lg overflow-hidden shadow-xl flex flex-col">
+                    {[0.5, 1, 2, 5].map(s => (
+                      <button key={s} onClick={() => { setState(p => ({ ...p, playbackSpeed: s })); setShowSpeed(false); }} className={`py-2 text-[10px] font-bold hover:bg-slate-800 ${state.playbackSpeed === s ? 'text-sky-400' : 'text-slate-400'}`}>{s}x</button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+          </div>
         </div>
 
-        {activeModal && activeModal !== 'OBSERVER_POV' && <UniversalModal type={activeModal as ModalType} onClose={() => setActiveModal(null)} />}
-        {activeModal === 'OBSERVER_POV' && <UniversalModal type="OBSERVER_POV" onClose={() => setActiveModal(null)} />}
-      </>
-      );
+      </div>
+
+      {activeModal && activeModal !== 'OBSERVER_POV' && <UniversalModal type={activeModal as ModalType} onClose={() => setActiveModal(null)} />}
+      {activeModal === 'OBSERVER_POV' && <UniversalModal type="OBSERVER_POV" onClose={() => setActiveModal(null)} />}
+    </>
+  );
 };
 
-      export default Controls;
+export default Controls;
