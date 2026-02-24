@@ -399,10 +399,10 @@ export const PhotonInspector: React.FC<PhotonInspectorProps> = ({ isOpen, onClos
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-8">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-0 md:p-8">
             <div className="absolute inset-0 bg-black/80 backdrop-blur-xl" onClick={onClose} />
 
-            <div className="relative w-full h-full md:max-w-6xl md:aspect-[16/9] bg-slate-950 border border-slate-800 md:rounded-2xl shadow-2xl overflow-hidden flex flex-col pointer-events-auto">
+            <div className="relative w-full h-full md:max-w-6xl md:aspect-[16/9] bg-slate-950 border border-slate-800 rounded-none md:rounded-2xl shadow-2xl overflow-hidden flex flex-col pointer-events-auto">
 
                 {/* Header */}
                 <div className="absolute top-0 left-0 right-0 z-10 flex justify-between items-start p-3 md:p-6 bg-gradient-to-b from-slate-950/90 to-transparent pointer-events-none">
@@ -515,7 +515,7 @@ export const PhotonInspector: React.FC<PhotonInspectorProps> = ({ isOpen, onClos
                 </div>
 
                 {/* Control Panel */}
-                <div className="h-auto min-h-0 md:min-h-[14rem] bg-slate-900 border-t border-slate-800 p-3 md:p-6 flex flex-col gap-3 md:gap-6 z-20 overflow-y-auto max-h-[40vh] md:max-h-none">
+                <div className="h-auto min-h-0 md:min-h-[14rem] bg-slate-900 border-t border-slate-800 p-3 md:p-6 flex flex-col gap-3 md:gap-6 z-20 overflow-y-auto  md:max-h-none">
 
                     {/* Top Row: Metrics and Graph */}
                     <div className="flex flex-col lg:flex-row gap-3 md:gap-6 md:h-auto lg:h-32">
@@ -614,5 +614,6 @@ export const PhotonInspector: React.FC<PhotonInspectorProps> = ({ isOpen, onClos
         </div>
     );
 };
+
 
 

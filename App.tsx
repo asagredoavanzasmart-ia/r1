@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import SimulationCanvas from './components/SimulationCanvas';
 import Controls from './components/Controls';
 import ContextPanel from './components/ContextPanel';
@@ -110,7 +110,7 @@ function App() {
       </div>
 
       {/* Touch gesture hint - mobile only */}
-      <div className="md:hidden absolute bottom-16 left-1/2 -translate-x-1/2 z-10 bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10 text-[10px] text-white/50 pointer-events-none animate-pulse">
+      <div className="md:hidden absolute top-[5rem] left-1/2 -translate-x-1/2 z-10 bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10 text-[10px] text-white/50 pointer-events-none animate-pulse">
         Pellizca para zoom · Desliza para rotar
       </div>
       {/* Header */}

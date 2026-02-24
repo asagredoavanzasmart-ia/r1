@@ -413,9 +413,9 @@ const Controls: React.FC<ControlsProps> = ({ state, setState, hoverData, toggleC
 
 
         {/* === BOTTOM CONTROLS BAR (NEW LAYOUT) === */}
-        <div className="absolute bottom-0 left-0 right-0 py-2 px-1 md:py-6 md:px-20 z-30 pointer-events-auto bg-gradient-to-t from-black via-black/90 to-transparent flex items-center justify-center pb-8 md:pb-6">
+        <div className="absolute bottom-0 left-0 right-0 py-2 px-1 md:py-6 md:px-20 z-30 pointer-events-auto bg-gradient-to-t from-black via-black/90 to-transparent flex items-center justify-center pb-8 md:pb-6 overflow-visible w-full box-border">
 
-          <div className="w-full max-w-7xl flex items-center justify-between gap-1 md:gap-6">
+          <div className="w-full max-w-[100vw] sm:max-w-7xl flex items-center justify-between gap-1 md:gap-6 px-1 md:px-0">
 
             {/* Left: Playback Controls */}
             <div className="flex items-center gap-1 md:gap-3 shrink-0">
@@ -476,7 +476,7 @@ const Controls: React.FC<ControlsProps> = ({ state, setState, hoverData, toggleC
             </div>
 
             {/* Right: Scale & Speed */}
-            <div className="flex items-center gap-1 md:gap-4 shrink-0 pr-0 md:pr-40">
+            <div className="flex items-center gap-1 md:gap-4 shrink-0 pr-1 md:pr-40">
               {/* Added padding-right to avoid overlap with floating buttons at bottom right */}
 
               <div className="relative">

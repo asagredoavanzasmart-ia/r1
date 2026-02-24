@@ -52,9 +52,15 @@ const ChatBot: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isOpen]);
 
-  const handleSend = async (e?: React.FormEvent) => {
+  const handleSend = async (e?: React.FormEvent | React.MouseEvent) => {
     e?.preventDefault();
-    if (!input.trim() || isLoading || !chatRef.current) return;
+    if (!input.trim() || isLoading) return;
+
+    if (!chatRef.current) {
+      setMessages(prev => [...prev, { role: 'user', text: input.trim() }, { role: 'model', text: 'Error: API de Gemini no inicializada. Revisa tus variables de entorno.' }]);
+      setInput("");
+      return;
+    }
 
     const userMsg = input.trim();
     setInput("");
@@ -155,9 +161,10 @@ const ChatBot: React.FC = () => {
               disabled={isLoading}
             />
             <button
-              type="submit"
+              type="button"
+              onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="absolute right-1.5 p-1.5 bg-sky-600 hover:bg-sky-500 text-white rounded-full disabled:opacity-50 disabled:hover:bg-sky-600 transition-colors"
+              className="absolute right-1.5 p-1.5 bg-sky-600 hover:bg-sky-500 text-white rounded-full disabled:opacity-50 disabled:hover:bg-sky-600 transition-colors z-10"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="22" y1="2" x2="11" y2="13"></line>
